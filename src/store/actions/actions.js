@@ -1,25 +1,38 @@
+import axios from 'axios';
 import {
   FETCH_IMAGE_FAILURE,
   FETCH_IMAGE_REQUEST,
   FETCH_IMAGE_SUCCESS,
 } from './actionTypes';
 
-export const fetchImageRequest = () => {
-  return {
-    type: FETCH_IMAGE_REQUEST,
-  };
-};
+const apiUrl = 'https://dog.ceo/api/breeds/image/random';
 
-export const fetchImageSuccess = images => {
-  return {
-    type: FETCH_IMAGE_SUCCESS,
-    payload: images,
-  };
-};
+export const fetchImageRequest = () => ({
+  type: FETCH_IMAGE_REQUEST,
+});
 
-export const fetchImageFailure = error => {
-  return {
-    type: FETCH_IMAGE_FAILURE,
-    payload: error,
+export const fetchImageSuccess = images => ({
+  type: FETCH_IMAGE_SUCCESS,
+  payload: images,
+});
+
+export const fetchImageFailure = error => ({
+  type: FETCH_IMAGE_FAILURE,
+  payload: error,
+});
+
+export const fetchImages = () => {
+  return dispatch => {
+    dispatch(fetchImageRequest);
+    axios
+      .get(apiUrl)
+      .then(res => {
+        console.log(res.data);
+        dispatch(fetchImageSuccess());
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(fetchImageFailure(error));
+      });
   };
 };
