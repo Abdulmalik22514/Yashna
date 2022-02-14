@@ -1,11 +1,20 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import {COLORS} from '../constants';
 
-const Button = ({title, onPress}) => {
+const Button = ({title, onPress, loading}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.buttonTitle}>{title}</Text>
+      {loading ? (
+        <ActivityIndicator color="white" size="small" style={{marginTop: 10}} />
+      ) : (
+        <Text style={styles.buttonTitle}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };
@@ -19,6 +28,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     height: 50,
     paddingHorizontal: 20,
+    width: 150,
   },
   buttonTitle: {
     color: COLORS.white,
