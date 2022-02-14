@@ -10,14 +10,16 @@ export const fetchImageRequest = () => {
   };
 };
 
-export const fetchImageSuccess = () => {
+export const fetchImageSuccess = images => {
   return {
     type: FETCH_IMAGE_SUCCESS,
+    payload: images,
   };
 };
 
-export const fetchImageFailure = () => {
+export const fetchImageFailure = error => {
   return {
     type: FETCH_IMAGE_FAILURE,
+    payload: error,
   };
 };
